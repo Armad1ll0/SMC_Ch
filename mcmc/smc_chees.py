@@ -53,18 +53,7 @@ def smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, x_0 = None, lr = 0.1, deca
     optim_state = optimiser.init(log_trajectory_length)
     log_trajectory_length_ma = 0
 
-    # # Generate N x K random numbers
-    # if rn_seq_gen is None:
-    #     rn_seq = jnp.ones((N, K))
-    # else:
-    #     rn_seq = rn_seq_gen.random(N)
-    #     # print(rn_seq)
-
-    # if inv == True:
-    #     rn_seq = rn_seq[:, ::-1]
-
     print('We are using the following random sequence', rn_seq)
-
     
     p_logpdf_x = vmap(p.log_prob, in_axes=(0))(x)
     q_logpdf_x = vmap(q_0.log_prob, in_axes=(0))(x)

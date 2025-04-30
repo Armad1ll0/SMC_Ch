@@ -234,11 +234,11 @@ def run_german_credit(num_runs, N, K, h, num_steps):
     
 
 #%%
-# h=0.1
-# run_gauss(num_runs, N, K, h, num_steps)
-# h=0.01
-# run_banana(num_runs, N, K, h, num_steps)
-# h=0.001
-# run_ill_conditioned_gauss(num_runs, N, K, h, num_steps)
+h=0.1
+run_gauss(num_runs, N, K, h, num_steps)
+h=0.01
+run_banana(num_runs, N, K, h, num_steps)
+h=0.001
+run_ill_conditioned_gauss(num_runs, N, K, h, num_steps)
 h=0.001
 run_german_credit(num_runs, N, K, h, num_steps)

@@ -227,7 +227,5 @@ class NUTS:
                 # Update acceptance rate
                 alpha += not_stopped * alpha2
                 nalpha += not_stopped * nalpha2
-                #alpha[not_stopped] = alpha[not_stopped] + alpha2[not_stopped]
-                #nalpha[not_stopped] = nalpha[not_stopped] + nalpha2[not_stopped]
 
             return xminus, vminus, grad_xminus, xplus, vplus, grad_xplus, xprime, vprime, numnodes, stopped, alpha, nalpha

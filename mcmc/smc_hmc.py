@@ -20,16 +20,11 @@ def update_weight(logw, x_new, x, v_new, v, p, q):
     return logw_new
 
 def normalise_weights(logw):
-    # w = jnp.exp(logw)
-    # wn = w / jnp.sum(w)
-    # return wn
     max_weight = jnp.max(logw)
     exp_weights = jnp.exp(logw - max_weight)
     return exp_weights / jnp.sum(exp_weights)
 
 def multinomial_resampling(wn, N):
-    # Need to use a jax function instead of this when doing production code 
-    # indices = jax.scipy.stats.multinomial.pmf(n=N, p=wn, shape=(N,))
     wn = np.asarray(wn)
     wn = torch.tensor(wn)
     idx = torch.multinomial(torch.t(wn), N, replacement=True)

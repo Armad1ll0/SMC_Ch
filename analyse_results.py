@@ -119,8 +119,6 @@ def plot_roc_curve(experiments_results, experiment, X_test, y_test):
 
 def plot_banana_samples(folder_path, method, target, run=1):
     samples = load_numpy_files(folder_path, file_type = 'samples', run=run)
-    # if method == 'ChEES_hal_scram':
-    #     method = 'sChEES'
     fig, ax = plt.subplots(figsize=(10, 10))
     x = np.linspace(-2.5, 2.5, 300)
     y = np.linspace(-2.0, 5.5, 300)
@@ -173,15 +171,12 @@ def create_classification_table(experiments_results, method_fps):
 methods = ['NUTS', 'no_jitter', 'Nd-ChEES_hal',  'Nd-ChEES-inv-hal', 
            '1d-ChEES-hal', '1d-ChEES-gr','1d-ChEES-uni', 'Nd-ChEES-primes', 
            'Nd-ChEES-inv-primes', 'Nd-ChEES-equi', 'Nd-ChEES-ofset-equi',  
-           "Nd-Sobol", 'Nd-Sobol_inv', '1D-Sobol']# ['NUTS', 'biChEES', 'biChEES_hal_scram', 'biChEES_gr']#, 'ChEES_gr', 'ChEES_hal_scram', 'NUTS']
+           "Nd-Sobol", 'Nd-Sobol_inv', '1D-Sobol']
 method_plot_names = ['NUTS', 'No Jitter', 'N-d Halton', 'N-d Inverse Halton', 
                     '1-d Halton', '1-d Golden Ratio', '1-d Uniform', 'N-d Primes', 
                     'N-d Inverse Primes', 'N-d Equidistant', 'N-d Offset Equidistant',
-                    "N-d Sobol", 'N-d Inverse Sobol', '1-D Sobol']# ['NUTS', 'biChEES', 'biChEES_hal_scram', 'biChEES_gr']#, 'ChEES_gr', 'ChEES_hal_scram', 'NUTS']
-# methods = ['biChEES', 'biChEES_hal_scram', 'biChEES_gr','ChEES', 'ChEES_gr', 'ChEES_hal_scram', 'NUTS']
-# experiments = ['gauss', 'german_credit_n100_0.001', 'new_banana', 'ill_conditioned_gauss_h_0.001_N_100']#'new_banana', #'gauss', 'ill_conditioned_gauss', 'banana', 
-# experiments = ['nbi_new_banana',  'nbi_german_credit_n100_0.001', 'nbi_ill_conditioned_gauss_h_0.01_N_100', 'nbi_gauss'] #'new_banana', #'gauss', 'ill_conditioned_gauss', 'banana',
-experiments = ['long_nbi_ill_conditioned_gauss_h_0.001_N_100', 'nbi_new_banana',  'nbi_gauss', 'nbi_german_credit_n100_0.001',] #'new_banana', #'gauss', 'ill_conditioned_gauss', 'banana',
+                    "N-d Sobol", 'N-d Inverse Sobol', '1-D Sobol']
+experiments = ['long_nbi_ill_conditioned_gauss_h_0.001_N_100', 'nbi_new_banana',  'nbi_gauss', 'nbi_german_credit_n100_0.001',] 
 
 experiments_results = {}
 for experiment in experiments:
@@ -258,9 +253,6 @@ for experiment in experiments_results.keys():
         
 ## plt samples for banana (4 plots)
 banana = BananaDistribution()
-# for method, method_fp in zip(experiments_results['German Credit'].keys(), methods):
-#     folder_path = f'results/nbi_new_banana/{method_fp}'
-#     plot_banana_samples(folder_path, method, banana, run=1)
 
 def plot_all_banana_samples(folder_path, methods, target):
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -277,16 +269,12 @@ def plot_all_banana_samples(folder_path, methods, target):
     ax.legend()
     plt.savefig(f'plots/paper/banana_samples_all.pdf', bbox_inches='tight', dpi=300)
 
-# plot_all_banana_samples('results/nbi_new_banana', methods, banana)
     
 # plot all bananas with offset
 def plot_all_samples_offset(folder_path, methods, method_fps, target):
     fig, ax = plt.subplots(figsize=(20, 10))
     y = np.linspace(-2.75, 2.75, 300)
     x = np.linspace(-2.0, 16.25, 300)
-    # X, Y = np.meshgrid(x, y)
-    # Z = vmap(target.log_prob, in_axes = (0))(np.array([X.ravel(), Y.ravel()]).T).reshape(X.shape)
-    # ax.contourf(X, Y, Z, levels=20)
     for method, method_fp in zip(methods, method_fps):
         # calculate offset for number in methods list
         offset = methods.index(method)
@@ -295,10 +283,6 @@ def plot_all_samples_offset(folder_path, methods, method_fps, target):
         samples_eval = np.array([samples[:, :, 0].flatten(), samples[:, :, 1].flatten()]).T 
         sizes = np.exp(vmap(target.log_prob, in_axes = (0))(samples_eval))
         print("sizes", sizes)
-        # print(samples[:, :, 0].shape)
-        # print(np.vstack([samples[:, :, 0].flatten(), samples[:, :, 1].flatten()]).shape)
-        # print(np.array([samples[:, :, 0].ravel(), samples[:, :, 1].ravel()]).shape)
-        # print(sizes.shape)
         ax.scatter(samples[:, :, 1]+offset, samples[:, :, 0], alpha=0.5, label=method_fp, s=sizes)
     ax.set_xlabel(r'$\theta_{(1)}$')
     ax.set_ylabel(r'$\theta_{(2)}$')
