@@ -6,7 +6,7 @@ _Github repo for using investigating the use of the ChEES criterion for adapting
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/Armad1ll0/SMC_Ch.git
 cd your-repo-name
 ```
 
