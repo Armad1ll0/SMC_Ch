@@ -5,8 +5,6 @@ _Github repo for using investigating the use of the ChEES criterion for adapting
 ## Getting Started
 
 ### Clone the Repository
-
-```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 
