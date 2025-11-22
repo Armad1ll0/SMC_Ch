@@ -21,6 +21,8 @@ htmlcov/
 # folders
 examples/plots/
 examples/
+results/
+plots/
 
 *.png
 *.npy

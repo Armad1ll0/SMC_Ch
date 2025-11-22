@@ -71,7 +71,6 @@ def smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, x_0 = None, lr = 0.1, deca
         # estimate quantities needed
         mean, var = estimate_values(x, wn, D, N)
         mean_est.append(mean)
-        print("mean", mean)
         var_est.append(var)
         adj_trajectory_length = trajectory_length*rn_seq[:, i-1]
         num_steps = jnp.ceil(h/adj_trajectory_length).astype(int).reshape(-1, 1)

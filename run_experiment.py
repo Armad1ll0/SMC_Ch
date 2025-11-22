@@ -35,23 +35,24 @@ def run_experiment(num_runs, N, D, K, h, num_steps, p, q_0, q, target_name, burn
                 halton = Halton(K, scramble=False)
                 halton.fast_forward(1)
                 rn_seq = halton.random(N)
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
-                
-                
+                        
             elif method == 'Nd-Sobol':
                 sobol = Sobol(K, scramble=False)
                 sobol.fast_forward(1)
                 rn_seq = sobol.random(N)
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq,
                                                                             DA = False, adapt_length = True, burn_in=burn_in)
                 
-
             elif method == 'Nd-Sobol_inv':
                 sobol = Sobol(K, scramble=False)
                 sobol.fast_forward(1)
                 rn_seq = sobol.random(N)
                 rn_seq = rn_seq[:, ::-1]
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq,
                                                                             DA = False, adapt_length = True, burn_in=burn_in)
 
@@ -59,12 +60,13 @@ def run_experiment(num_runs, N, D, K, h, num_steps, p, q_0, q, target_name, burn
                 sobol = Sobol(1, scramble=False)
                 sobol.fast_forward(1)
                 rn_seq = sobol.random(N*K).reshape(N, K)
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq,
                                                                             DA = False, adapt_length = True, burn_in=burn_in)    
-
-                
+              
             elif method == 'no_jitter':
                 rn_seq = np.ones((N, K))
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)    
             elif method == 'Nd-ChEES-inv-hal':
@@ -72,6 +74,7 @@ def run_experiment(num_runs, N, D, K, h, num_steps, p, q_0, q, target_name, burn
                 halton.fast_forward(1)
                 rn_seq = halton.random(N)
                 rn_seq = rn_seq[:, ::-1]
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
                 
@@ -79,23 +82,27 @@ def run_experiment(num_runs, N, D, K, h, num_steps, p, q_0, q, target_name, burn
                 halton = Halton(1, scramble=False)
                 halton.fast_forward(1)
                 rn_seq = halton.random(N*K).reshape(N, K)
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
                 
             elif method == '1d-ChEES-gr':
                 gr = golden_ratio(K)
                 rn_seq = gr.random(N)
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
                 
             elif method == '1d-ChEES-uni':
                 rn_seq = np.random.uniform(size=(N, K))
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
                 
             elif method == 'Nd-ChEES-primes':
                 primes = primes_seq(K)
                 rn_seq = primes.random(N)
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
                 
@@ -103,23 +110,24 @@ def run_experiment(num_runs, N, D, K, h, num_steps, p, q_0, q, target_name, burn
                 primes = primes_seq(K)
                 rn_seq = primes.random(N)
                 rn_seq = rn_seq[:, ::-1]
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
                 
             elif method == 'Nd-ChEES-equi':
                 equi = equidistant(K)
                 rn_seq = equi.random(N)
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
                 
             elif method == 'Nd-ChEES-ofset-equi':
                 equi = equidistant(K, offset=True)
                 rn_seq = equi.random(N)
+                print("rn_seq shape:", rn_seq.shape)
                 mean, var, samples, Neffs, num_grad_evals = smc_hmc_chees(N, D, K, h, p, q_0, q, key, rn_seq, 
                                                                           DA = False, adapt_length = True, burn_in=burn_in)
-                
-            
-                      
+                                
             elif method == 'NUTS':
                 mean, var, samples, Neffs, num_grad_evals = smc_nuts(N, D, K, h, p, q_0, q, key)
             elif method == 'HMC':
@@ -188,7 +196,7 @@ def run_ill_conditioned_gauss(num_runs, N, K, h, num_steps):
 def run_german_credit(num_runs, N, K, h, num_steps):
     # Load the data 
     # German credit dataset 
-    path = 'examples/data/german.data-numeric'
+    path = 'german.data-numeric'
     data = pd.read_csv(path, delim_whitespace = True, header = None)
 
     #%%
@@ -234,11 +242,11 @@ def run_german_credit(num_runs, N, K, h, num_steps):
     
 
 #%%
-h=0.1
-run_gauss(num_runs, N, K, h, num_steps)
-h=0.01
-run_banana(num_runs, N, K, h, num_steps)
-h=0.001
-run_ill_conditioned_gauss(num_runs, N, K, h, num_steps)
+# h=0.1
+# run_gauss(num_runs, N, K, h, num_steps)
+# h=0.01
+# run_banana(num_runs, N, K, h, num_steps)
+# h=0.001
+# run_ill_conditioned_gauss(num_runs, N, K, h, num_steps)
 h=0.001
 run_german_credit(num_runs, N, K, h, num_steps)

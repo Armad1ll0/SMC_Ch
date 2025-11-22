@@ -176,7 +176,7 @@ method_plot_names = ['NUTS', 'No Jitter', 'N-d Halton', 'N-d Inverse Halton',
                     '1-d Halton', '1-d Golden Ratio', '1-d Uniform', 'N-d Primes', 
                     'N-d Inverse Primes', 'N-d Equidistant', 'N-d Offset Equidistant',
                     "N-d Sobol", 'N-d Inverse Sobol', '1-D Sobol']
-experiments = ['long_nbi_ill_conditioned_gauss_h_0.001_N_100', 'nbi_new_banana',  'nbi_gauss', 'nbi_german_credit_n100_0.001',] 
+experiments = ['ill_conditioned_gauss_h_0.001_N_1000', 'new_banana_h_0.01_N_1000',  'gauss_h_0.1_N_1000', 'nbi_german_credit_n100_0.001',] 
 
 experiments_results = {}
 for experiment in experiments:
@@ -204,7 +204,7 @@ for experiment in experiments:
 
 create_latex_table(experiments_results, method_plot_names)
 
-path = 'examples/data/german.data-numeric'
+path = 'german.data-numeric'
 data = pd.read_csv(path, delim_whitespace = True, header = None)
 X = data.iloc[:, :-1].values  # All columns except the last as features
 y = data.iloc[:, -1].values   # Last column as the target
@@ -287,6 +287,7 @@ def plot_all_samples_offset(folder_path, methods, method_fps, target):
     ax.set_xlabel(r'$\theta_{(1)}$')
     ax.set_ylabel(r'$\theta_{(2)}$')
     ax.legend()
-    plt.savefig(f'plots/paper/banana_samples_all_offset.pdf', bbox_inches='tight', dpi=300)
+    plt.savefig(f'plots/paper/banana_samples_all_offset.pdf', bbox_inches='tight', dpi=100)
+    plt.savefig(f'plots/paper/banana_samples_all_offset.png', bbox_inches='tight', dpi=100)
 
-plot_all_samples_offset('results/nbi_new_banana', methods, method_plot_names, banana)
+plot_all_samples_offset('results/new_banana_h_0.01_N_1000', methods, method_plot_names, banana)
