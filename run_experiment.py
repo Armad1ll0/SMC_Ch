@@ -19,11 +19,11 @@ import time
 def run_experiment(num_runs, N, D, K, h, num_steps, p, q_0, q, target_name, burn_in = 0): 
     for i in range(0, num_runs):
         key = random.PRNGKey(i)
-        methods = ['NUTS', 'no_jitter', 
-                   'Nd-ChEES_hal', 'Nd-ChEES-inv-hal', '1d-ChEES-hal', 
-                   '1d-ChEES-gr', '1d-ChEES-uni', 'Nd-ChEES-primes', 
-                   'Nd-ChEES-inv-primes', 'Nd-ChEES-equi', 'Nd-ChEES-ofset-equi', 
-                   'Nd-Sobol', 'Nd-Sobol_inv', '1D-Sobol']
+        # 'NUTS', 'no_jitter', 'Nd-ChEES_hal', 'Nd-ChEES-inv-hal', '1d-ChEES-hal',
+        # '1d-ChEES-gr', '1d-ChEES-uni', 'Nd-ChEES-primes', 
+                # 'Nd-ChEES-inv-primes', 'Nd-ChEES-equi', 'Nd-ChEES-ofset-equi', 
+                # 'Nd-Sobol', 'Nd-Sobol_inv', 
+        methods = ['1D-Sobol']
 
         for method in methods:
             start = time.time()
@@ -152,10 +152,10 @@ def run_experiment(num_runs, N, D, K, h, num_steps, p, q_0, q, target_name, burn
 
 
 #%%
-num_runs = 10
-N = 1000
-K = 200
-burn_in = 100
+num_runs = 2
+N = 250
+K = 50
+burn_in = 25
 num_steps = 5
 
 #%%
@@ -242,11 +242,11 @@ def run_german_credit(num_runs, N, K, h, num_steps):
     
 
 #%%
-# h=0.1
-# run_gauss(num_runs, N, K, h, num_steps)
+h=0.1
+run_gauss(num_runs, N, K, h, num_steps)
 # h=0.01
 # run_banana(num_runs, N, K, h, num_steps)
 # h=0.001
 # run_ill_conditioned_gauss(num_runs, N, K, h, num_steps)
-h=0.001
-run_german_credit(num_runs, N, K, h, num_steps)
+# h=0.001
+# run_german_credit(num_runs, N, K, h, num_steps)
